@@ -79,6 +79,7 @@ from smach_viewer import xdot
 import smach
 import smach_ros
 
+
 ### Helper Functions
 def graph_attr_string(attrs):
     """Generate an xdot graph attribute string."""
@@ -389,7 +390,8 @@ class ContainerNode():
                 child_fillcolor = [1,1,1,1]
                 child_linewidth = 2
 
-                active_color = hex2t('#5C7600FF')
+               # active_color = hex2t('#5C7600FF')
+                active_color = hex2t(own_color)
                 active_fillcolor = hex2t('#C0F700FF')
 
                 initial_color = hex2t('#000000FF')
@@ -1033,13 +1035,21 @@ class SmachViewerFrame(wx.Frame):
     def set_filter(self, filter):
         self.widget.set_filter(filter)
 
+# own active color for state (default)
+own_color = '#5C7600FF'
+
 def main():
     from argparse import ArgumentParser
+    global own_color
     p = ArgumentParser()
     p.add_argument('-f', '--auto-focus',
                  action='store_true',
                  help="Enable 'AutoFocus to subgraph' as default",
                  dest='enable_auto_focus')
+
+    p.add_argument('--active_color',
+                   action="store_true",
+                   dest='active_own_color')
     args = p.parse_args()
     app = wx.App()
 
@@ -1050,6 +1060,10 @@ def main():
 
     if args.enable_auto_focus:
         frame.toggle_auto_focus(None)
+
+    # define active state color
+    if args.active_own_color:
+        own_color = '#0000FFFF'
 
     app.MainLoop()
 

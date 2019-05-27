@@ -1,0 +1,6 @@
+#!/bin/bash
+# cкрипт для запуска визуализатора
+# ключ --active_color определен только для ветки own_color_test
+# по данному ключу рамка активных состояний синего цвета
+source ~/local/workspace/robotics_workspace/devel/setup.bash
+rosrun smach_viewer smach_viewer.py --active_color
